@@ -4,10 +4,10 @@ import { Chip } from "@nextui-org/react";
 
 function Navbar() {
   return (
-    <nav className="flex items-center justify-between px-28 w-full h-16 mt-2">
+    <nav className="flex items-center justify-between px-5 md:px-10 lg:px-28 h-16 mt-2">
       <div className="flex">
         <div>
-          <h1 className="font-outfit font-bold text-2xl text-gray-600">
+          <h1 className="font-outfit font-bold text-md md:text-2xl text-gray-600">
             Weather App
           </h1>
         </div>
@@ -16,16 +16,18 @@ function Navbar() {
         </div>
       </div>
 
-      <div className="flex gap-3">
+      <div className="gap-3 hidden lg:flex">
         <Chip variant="flat">London</Chip>
         <Chip variant="flat">Sydney</Chip>
         <Chip variant="flat">Tokyo</Chip>
         <Chip variant="flat">Toronto</Chip>
-        <Chip variant="flat">Paris</Chip>
+        <Chip variant="flat" className="hidden md:flex">
+          Paris
+        </Chip>
       </div>
 
       <div>
-        <div className=" p-3 rounded-full bg-gray-200 flex items-center w-72">
+        <div className="p-2 ml-3 md:p-3 rounded-full bg-gray-200 flex items-center w-44 md:w-72">
           <svg
             className="w-6 h-6 text-gray-500 mr-2"
             fill="none"
