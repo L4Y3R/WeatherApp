@@ -25,7 +25,7 @@ function Navbar() {
       </div>
 
       <div>
-        <div className="mt-1 p-3 rounded-full bg-gray-200 flex items-center w-72">
+        <div className=" p-3 rounded-full bg-gray-200 flex items-center w-72">
           <svg
             className="w-6 h-6 text-gray-500 mr-2"
             fill="none"
