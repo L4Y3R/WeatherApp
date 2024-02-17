@@ -20,7 +20,7 @@ function MainInfo() {
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center lg:px-20">
-        <div className="flex md:gap-6 items-center ">
+        <div className="flex flex-col md:flex-row md:gap-6 items-center ">
           <div>
             <Image
               src="/placeholders/cloud-solid.svg"
@@ -29,7 +29,7 @@ function MainInfo() {
               height={100}></Image>
           </div>
           <div>
-            <span className="md:text-5xl lg:text-7xl font-bold">18</span>
+            <span className="text-6xl lg:text-7xl font-bold">18</span>
           </div>
         </div>
 
