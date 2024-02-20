@@ -1,11 +1,11 @@
 import React from "react";
 import Image from "next/image";
 
-function Hourly() {
+function Hourly({ title }) {
   return (
     <>
       <span className="mx-5 md:mx-16 font-outfit mt-20 font-bold text-2xl text-gray-600">
-        Hourly Forecast
+        {title}
       </span>
       <div className="overflow-x-scroll flex justify-between mx-5 md:mx-16 mt-6 font-outfit text-gray-600 gap-2 md:gap-5">
         <div className="bg-slate-100 w-44 md:h-[200px] md:w-80 rounded-3xl shadow-md py-3 mb-5 flex flex-col items-center">
