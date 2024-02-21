@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-function MainInfo() {
+function MainInfo({ weather: { name, country, details } }) {
   return (
     <div className="bg-slate-100 md:h-[320px] mx-5 md:mx-16 mt-2 md:mt-8 rounded-3xl shadow-md p-6 font-outfit text-gray-600">
       <div className="flex flex-col md:flex-row justify-between px-2">
@@ -38,8 +38,8 @@ function MainInfo() {
         </div>
 
         <div className="flex flex-col items-center mt-4 md:mt-0">
-          <div className="text-5xl lg:text-7xl  font-bold ">Berlin, CN</div>
-          <div className="  text-2xl">Clear</div>
+          <div className="text-5xl lg:text-7xl  font-bold ">{`${name}, ${country}`}</div>
+          <div className="  text-2xl">{`${details}`}</div>
         </div>
 
         <div className="w-full md:w-36 lg:w-44 font-medium mt-10 md:mt-0 py-8 md:py-0 text-center md:text-right lg:text-left rounded-t-3xl bg-slate-200 md:rounded-none md:bg-slate-100 text-xl md:text-lg">
