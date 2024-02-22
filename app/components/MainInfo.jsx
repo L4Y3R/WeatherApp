@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { formatToLocalTime, iconUrlFromCode } from "../services/weatherService";
 
 function MainInfo({
   weather: {
@@ -14,37 +15,72 @@ function MainInfo({
     sunset,
     temp_max,
     temp_min,
+    timezone,
+    dt,
+    icon,
   },
+  units,
+  setUnits,
 }) {
+  const handleUnitsChange = (e) => {
+    const selectedUnit = e.currentTarget.name;
+    if (units !== selectedUnit) setUnits(selectedUnit);
+  };
+
+  const getBackgroundColor = (temperature, unit) => {
+    const convertedTemp =
+      unit === "imperial" ? (temperature - 32) * (5 / 9) : temperature;
+
+    if (convertedTemp >= 30) {
+      return "bg-orange-200";
+    } else if (convertedTemp <= 0) {
+      return "bg-blue-200";
+    } else {
+      return "bg-slate-200";
+    }
+  };
+
   return (
-    <div className="bg-slate-100 md:h-[320px] mx-5 md:mx-16 mt-2 md:mt-8 rounded-3xl shadow-md p-6 font-outfit text-gray-600">
+    <div
+      className={`md:h-[320px] mx-5 bg-blue-200 md:mx-16 mt-2 md:mt-8 rounded-3xl shadow-md p-6 font-outfit text-gray-600 ${getBackgroundColor(
+        temp,
+        units
+      )}`}>
       <div className="flex flex-col md:flex-row justify-between px-2">
         <div>
           <button
+            onClick={handleUnitsChange}
             name="metric"
-            className="bg-slate-300 px-2 rounded-l-full hover:bg-slate-400 font-bold">
-            °C
+            className={`bg-slate-300 px-2 rounded-l-full  ${
+              units === "metric" ? "text-white bg-slate-400" : "text-slate-400"
+            }`}>
+            °Celsius
           </button>
           <button
+            onClick={handleUnitsChange}
             name="imperial"
-            className="bg-slate-300 px-2 rounded-r-full hover:bg-slate-400 font-bold">
-            °F
+            className={`bg-slate-300 px-2 rounded-r-full   ${
+              units === "imperial"
+                ? "text-white bg-slate-400"
+                : "text-slate-400"
+            }`}>
+            °Fahrenheit
           </button>
         </div>
 
         <div className="mb-6 md:mb-16 text-gray-400 text-sm md:text-md">
-          Tuesday, 31 May 2024 | Local Time: 12.17PM
+          {formatToLocalTime(dt, timezone)}
         </div>
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center lg:px-20">
-        <div className="flex flex-col md:flex-row md:gap-6 items-center ">
+        <div className="flex flex-col md:flex-row  items-center ">
           <div>
-            <Image
-              src="/placeholders/cloud-solid.svg"
+            <img
+              src={iconUrlFromCode(icon)}
               alt="icon"
-              width={100}
-              height={100}></Image>
+              width={120}
+              height={120}></img>
           </div>
           <div>
             <span className="text-6xl lg:text-7xl font-bold">
@@ -55,10 +91,10 @@ function MainInfo({
 
         <div className="flex flex-col items-center mt-4 md:mt-0">
           <div className="text-5xl lg:text-7xl  font-bold ">{`${name}, ${country}`}</div>
-          <div className="  text-2xl">{`${details}`}</div>
+          <div className="mt-3  text-2xl">{`${details}`}</div>
         </div>
 
-        <div className="w-full md:w-36 lg:w-44 font-medium mt-10 md:mt-0 py-8 md:py-0 text-center md:text-right lg:text-left rounded-t-3xl bg-slate-200 md:rounded-none md:bg-slate-100 text-xl md:text-lg">
+        <div className="w-full md:w-36 lg:w-44 font-medium mt-10 md:mt-0 py-8 md:py-0 text-center md:text-right lg:text-left rounded-t-3xl  md:rounded-none text-xl md:text-lg">
           <div className="flex flex-row items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +113,7 @@ function MainInfo({
               viewBox="0 0 576 512">
               <path d="M275.5 6.6C278.3 2.5 283 0 288 0s9.7 2.5 12.5 6.6L366.8 103C378 119.3 384 138.6 384 158.3V160c0 53-43 96-96 96s-96-43-96-96v-1.7c0-19.8 6-39 17.2-55.3L275.5 6.6zM568.2 336.3c13.1 17.8 9.3 42.8-8.5 55.9L433.1 485.5c-23.4 17.2-51.6 26.5-80.7 26.5H192 32c-17.7 0-32-14.3-32-32V416c0-17.7 14.3-32 32-32H68.8l44.9-36c22.7-18.2 50.9-28 80-28H272h16 64c17.7 0 32 14.3 32 32s-14.3 32-32 32H288 272c-8.8 0-16 7.2-16 16s7.2 16 16 16H392.6l119.7-88.2c17.8-13.1 42.8-9.3 55.9 8.5zM193.6 384l0 0-.9 0c.3 0 .6 0 .9 0z" />
             </svg>
-            Humidity: <span className="font-bold"> {`${humidity}`} </span>
+            Humidity: <span className="font-bold"> {`${humidity}`}%</span>
           </div>
 
           <div className="flex flex-row items-center gap-2">
@@ -92,12 +128,18 @@ function MainInfo({
         </div>
       </div>
 
-      <div className="text-center mt-1 md:mt-16 lg:mt-12 font-semibold text-gray-600  text-xs md:text-md bg-slate-200  py-4 md:py-3 rounded-b-3xl md:rounded-full md:mx-16 lg:mx-72">
+      <div className="text-center mt-1 md:mt-14 lg:mt-10 font-semibold text-gray-600  text-xs md:text-md bg-slate-100  py-4 md:py-3 rounded-b-3xl md:rounded-full md:mx-16 lg:mx-72">
         <span className="mr-5 md:mr-20">
-          Rise <span className="ml-1">04:50AM</span>{" "}
+          Rise{" "}
+          <span className="ml-1">
+            {formatToLocalTime(sunrise, timezone, "hh:mm a")}
+          </span>{" "}
         </span>
         <span className="mr-5 md:mr-20">
-          Set <span className="ml-1">07:50AM</span>
+          Set{" "}
+          <span className="ml-1">
+            {formatToLocalTime(sunset, timezone, "hh:mm a")}
+          </span>
         </span>
         <span className="mr-5 md:mr-20">
           High <span className="ml-1">{`${Math.round(temp_max)}`}°</span>

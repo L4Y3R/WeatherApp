@@ -1,29 +1,28 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 
-function Navbar() {
-  const cities = [
-    {
-      id: 1,
-      title: "London",
-    },
-    {
-      id: 2,
-      title: "Sydeney",
-    },
-    {
-      id: 3,
-      title: "Tokyo",
-    },
-    {
-      id: 4,
-      title: "Toronto",
-    },
-    {
-      id: 5,
-      title: "Paris",
-    },
-  ];
+function Navbar({ setQuery }) {
+  const [city, setCity] = useState("");
+
+  const handleSearch = () => {
+    if (city !== "") setQuery({ q: city });
+  };
+
+  const handleLocationClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
+
+        setQuery({
+          lat,
+          lon,
+        });
+      });
+    }
+  };
 
   return (
     <nav className="flex items-center justify-between px-5 md:px-10 lg:px-28 h-16 mt-2">
@@ -38,24 +37,17 @@ function Navbar() {
         </div>
       </div>
 
-      <div className="gap-3 hidden lg:flex">
-        {cities.map((city) => (
-          <button
-            key={city.id}
-            className="rounded-full bg-slate-100 hover:bg-slate-200 px-3 font-medium font-outfit">
-            {city.title}
-          </button>
-        ))}
-      </div>
-
       <div className="flex gap-3">
         <div className="p-2 ml-3 md:p-3 rounded-full bg-gray-200 flex items-center w-44 md:w-72">
           <input
+            value={city}
+            onChange={(e) => setCity(e.currentTarget.value)}
             type="text"
             className="w-full outline-none bg-transparent"
             placeholder="Search for a location..."
           />
           <svg
+            onClick={handleSearch}
             className="w-6 h-6 text-gray-500 mr-2"
             fill="none"
             stroke="currentColor"
@@ -69,6 +61,7 @@ function Navbar() {
           </svg>
         </div>
         <Image
+          onClick={handleLocationClick}
           src="/icons/location.svg"
           alt="location icon"
           width={30}

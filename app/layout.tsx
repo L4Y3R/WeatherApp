@@ -1,12 +1,9 @@
+"use client";
+
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 import "./globals.css";
-
-import Navbar from "./components/Navbar";
-
-export const metadata: Metadata = {
-  title: "WeatherApp",
-};
+import { useState } from "react";
 
 export default function RootLayout({
   children,
@@ -16,10 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <body>
-        <Providers>
-          <Navbar />
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

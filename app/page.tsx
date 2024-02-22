@@ -1,8 +1,8 @@
 "use client";
 
 import MainInfo from "./components/MainInfo";
-import Hourly from "./components/Hourly";
-import Daily from "./components/Daily";
+
+import Navbar from "./components/Navbar";
 
 import getFormattedWeatherData from "./services/weatherService";
 import { useEffect, useState } from "react";
@@ -42,15 +42,10 @@ export default function Home() {
 
   return (
     <>
+      <Navbar setQuery={setQuery} />
       {weather && (
         <div>
-          <MainInfo weather={weather} />
-          <div className="mt-14">
-            <Hourly title="Hourly Forecast" />
-          </div>
-          <div className="my-10">
-            <Daily title="Daily Forecast" />
-          </div>
+          <MainInfo weather={weather} units={units} setUnits={setUnits} />
         </div>
       )}
     </>
