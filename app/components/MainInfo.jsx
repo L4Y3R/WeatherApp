@@ -97,22 +97,26 @@ function MainInfo({
             <div className="mt-3  text-2xl">{`${details}`}</div>
           </div>
 
-          <div className="w-full md:w-36 lg:w-44 font-medium mt-10 md:mt-0 py-8 md:py-0 text-center md:text-right lg:text-left rounded-t-3xl  md:rounded-none text-xl md:text-lg">
-            <div className="flex flex-row items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="fill-gray-500 w-5 h-5"
-                viewBox="0 0 320 512">
-                <path d="M160 64c-26.5 0-48 21.5-48 48V276.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5V112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112V276.5c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6V112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3V144c0-8.8 7.2-16 16-16s16 7.2 16 16V322.7c18.6 6.6 32 24.4 32 45.3z" />
-              </svg>
-              Feels Like:{" "}
-              <span className="font-bold">
-                {" "}
-                {`${Math.round(feels_like)}`}°{" "}
-              </span>{" "}
+          <div className="w-full md:w-36 lg:w-44 font-medium mt-10 md:mt-0 py-8 md:py-0  text-xl md:text-lg bg-slate-200 rounded-3xl md:bg-inherit md:rounded-none">
+            <div className="flex flex-row items-center justify-center md:justify-start gap-2">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-gray-500 w-5 h-5"
+                  viewBox="0 0 320 512">
+                  <path d="M160 64c-26.5 0-48 21.5-48 48V276.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5V112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112V276.5c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6V112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3V144c0-8.8 7.2-16 16-16s16 7.2 16 16V322.7c18.6 6.6 32 24.4 32 45.3z" />
+                </svg>
+              </div>
+              <div>
+                Feels Like:{" "}
+                <span className="font-bold">
+                  {" "}
+                  {`${Math.round(feels_like)}`}°{" "}
+                </span>{" "}
+              </div>
             </div>
 
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row items-center justify-center md:justify-start gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="fill-gray-500 w-5 h-5"
@@ -122,7 +126,7 @@ function MainInfo({
               Humidity: <span className="font-bold"> {`${humidity}`}%</span>
             </div>
 
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row items-center justify-center md:justify-start gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="fill-gray-500 w-5 h-5"
@@ -135,8 +139,8 @@ function MainInfo({
         </div>
       </div>
 
-      <div className="font-semibold text-gray-600 flex flex-row justify-between items-center mt-10 mx-5 gap-10 md:mx-16">
-        <div className="bg-slate-100 rounded-3xl flex flex-col justify-center items-center w-1/4 h-[200px] shadow-md">
+      <div className="font-semibold text-gray-600  justify-between items-center mt-10 mx-5 md:mx-16 grid grid-cols-2 md:grid-cols-4 grid-rows-2 md:grid-rows-1 gap-4 md:gap-10">
+        <div className="bg-slate-100 rounded-3xl flex flex-col justify-center items-center  h-[200px] shadow-md">
           <div className="mb-3">
             <Image
               src="/icons/sunrise.svg"
@@ -149,13 +153,13 @@ function MainInfo({
             <span>SUNRISE </span>
           </div>
           <div>
-            <span className="text-3xl font-black">
+            <span className=" text-2xl md:text-3xl font-black">
               {formatToLocalTime(sunrise, timezone, "hh:mm a")}
             </span>{" "}
           </div>
         </div>
 
-        <div className="bg-slate-100 rounded-3xl flex flex-col justify-center items-center w-1/4 h-[200px] shadow-md">
+        <div className="bg-slate-100 rounded-3xl flex flex-col justify-center items-center  h-[200px] shadow-md">
           <div className="mb-3">
             <Image
               src="/icons/sunset.svg"
@@ -168,13 +172,13 @@ function MainInfo({
             <span> SUNSET </span>
           </div>
           <div>
-            <span className="text-3xl font-black">
+            <span className=" text-2xl md:text-3xl font-black">
               {formatToLocalTime(sunset, timezone, "hh:mm a")}
             </span>{" "}
           </div>
         </div>
 
-        <div className="bg-slate-100 rounded-3xl flex flex-col justify-center items-center w-1/4 h-[200px] shadow-md">
+        <div className="bg-slate-100 rounded-3xl flex flex-col justify-center items-center  h-[200px] shadow-md">
           <div className="mb-3">
             <Image
               src="/icons/temp-low.svg"
@@ -194,7 +198,7 @@ function MainInfo({
           </div>
         </div>
 
-        <div className="bg-slate-100 rounded-3xl flex flex-col justify-center items-center w-1/4 h-[200px] shadow-md">
+        <div className="bg-slate-100 rounded-3xl flex flex-col justify-center items-center  h-[200px] shadow-md">
           <div className="mb-3">
             <Image
               src="/icons/temp-up.svg"
